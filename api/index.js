@@ -14,16 +14,20 @@ app.use((req, res, next) => {
 app.get('/api/video', async (req, res) => {
   try {
     const youtube = await Innertube.create({ lang: "ja", location: "JP" });
+    console.log(youtube)
     const { id } = req.query;
+    console.log(id)
     if (!id) return res.status(400).json({ error: "Missing video id" });
 
     const info = await youtube.getInfo(id);
+    console.log(info)
 
     // ★★★ Next.jsの例を参考に、関連動画を深掘りして最大100件取得するロジックに修正 ★★★
 
     // 関連動画取得（100件まで、深掘り）
     let relatedVideos = [];
     const MAX_VIDEOS = 10000;
+    console.log(MAX_VIDEOS(
 
     // 1. 初期の関連動画ソースを特定（複数のプロパティから優先順位に従って探す）
     let initialRelated = info.related || [];
